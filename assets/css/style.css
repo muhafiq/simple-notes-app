@@ -58,6 +58,11 @@
   height: inherit;
 }
 
+.no-notes {
+  font-size: 14px;
+  text-align: center;
+}
+
 .note {
   background-color: #dde6ed;
   display: flex;
@@ -198,4 +203,55 @@
 .no-content img {
   width: 10rem;
   margin-bottom: 2rem;
+}
+
+@media screen and (min-width: 600px) and (max-width: 768px) {
+  .sidebar .sidebar-action {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .note {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .note .file-info {
+    margin-bottom: 1rem;
+  }
+
+  .folder .info {
+    flex-direction: column;
+  }
+
+  .folder .info :first-child {
+    margin-bottom: 0.5rem;
+  }
+
+  .no-content > h1 {
+    font-size: 1rem;
+  }
+
+  .no-content > img {
+    width: 5rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .no-content > h1 {
+    font-size: 1rem;
+  }
+
+  .no-content > img {
+    width: 5rem;
+  }
 }

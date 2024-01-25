@@ -131,7 +131,7 @@ const saveNotes = (id, content, data) => {
 // function on sidebar
 const renderSidebar = () => {
   let element = "";
-  if (notes.length === 0) return (noteList.innerHTML = "");
+  if (notes.length === 0) return (noteList.innerHTML = noNotesElement());
   notes.forEach((note) => {
     if (note.type === "folder") {
       element += folderElement(note);
@@ -348,5 +348,11 @@ const noContentElement = () => {
       <img src="assets/img/icon/favicon.svg" alt="icon app" />
       <h1>No notes have been opened yet.</h1>
     </div>
+  `;
+};
+
+const noNotesElement = () => {
+  return `
+    <p class="no-notes">Nothing here.</p>
   `;
 };
