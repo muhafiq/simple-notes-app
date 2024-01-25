@@ -1,0 +1,201 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Ubuntu", "sans-serif", "system-ui";
+}
+
+#app {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  background-color: #9db2bf;
+  width: inherit;
+  height: inherit;
+  padding: 0.5rem;
+  display: flex;
+}
+
+.sidebar {
+  flex-grow: 1.5;
+  background-color: #fff;
+  border-radius: 0.6rem;
+  margin-right: 0.5rem;
+  padding: 0.5rem;
+}
+
+.sidebar .sidebar-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #526d82;
+  padding: 0.5rem;
+  color: #fff;
+  border-radius: 0.3rem;
+  margin-bottom: 0.7rem;
+  border-bottom: 2px solid black;
+}
+
+.sidebar .sidebar-action h4 {
+  font-size: 1.3rem;
+}
+
+.sidebar .sidebar-action i {
+  cursor: pointer;
+  margin-inline: 0.4rem;
+}
+
+.sidebar .notes-container {
+  border-top: 3px solid rgba(0, 0, 0, 0.7);
+  padding-top: 0.7rem;
+  height: inherit;
+}
+
+.note {
+  background-color: #dde6ed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  margin-bottom: 0.4rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+.note .file-info {
+  display: flex;
+}
+
+.note i {
+  margin-right: 0.5rem;
+}
+
+.folder {
+  background-color: #526d82;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  margin-bottom: 0.4rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+
+.folder .info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  color: white;
+}
+
+.folder .info > div {
+  display: flex;
+}
+
+.folder .info i {
+  margin-right: 0.5rem;
+}
+
+.folder .note {
+  margin-left: 2rem;
+}
+
+.content {
+  padding: 0.5rem;
+  flex-grow: 8.5;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 0.6rem;
+}
+
+.content .title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #526d82;
+  border-top-right-radius: 0.6rem;
+  border-top-left-radius: 0.6rem;
+}
+
+.content .title .note-title:first-child {
+  border-top-left-radius: 0.5rem;
+}
+
+.note-title {
+  display: flex;
+  justify-content: center;
+  padding: 0.6rem;
+  color: #fff;
+  background-clip: padding-box;
+  font-size: 0.9rem;
+}
+.note-title p {
+  margin-right: 1rem;
+  margin-left: 0.3rem;
+}
+
+.note-title .close {
+  padding: 0.1rem;
+}
+
+.note-title .close:hover {
+  cursor: pointer;
+  background-color: #fff;
+  border-radius: 0.3rem;
+  color: #000;
+}
+
+.title .active {
+  background-color: #dde6ed;
+  color: black;
+}
+
+.title .save-button {
+  background-color: #dde6ed;
+  border: none;
+  border-radius: 0.3rem;
+  margin: 0.4rem;
+  padding: 0.4rem;
+  cursor: pointer;
+}
+
+.content .input-note-here:focus {
+  outline: none;
+}
+
+.content .textarea {
+  height: 100%;
+}
+
+.content .input-note-here {
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  border: none;
+  background-color: #dde6ed;
+  font-size: 1.5rem;
+  resize: none;
+  border-bottom-left-radius: 0.6rem;
+  border-bottom-right-radius: 0.6rem;
+}
+
+.no-content {
+  height: inherit;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.no-content img {
+  width: 10rem;
+  margin-bottom: 2rem;
+}
