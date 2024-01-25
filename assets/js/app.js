@@ -119,19 +119,13 @@ const saveNotes = (id, content, data) => {
   for (const note of data) {
     if (note.id === id && note.type === "file") {
       note.content = content;
-      return true;
     }
 
     if (note.type === "folder" && note.files) {
-      const result = saveNotes(id, content, note.files);
-      if (result) {
-        return true;
-      }
+      saveNotes(id, content, note.files);
     }
   }
-
   saveData();
-  return false;
 };
 
 // function on sidebar
