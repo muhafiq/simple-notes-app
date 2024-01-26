@@ -71,11 +71,16 @@
   padding: 0.5rem;
   margin-bottom: 0.4rem;
   border-radius: 0.3rem;
-  cursor: pointer;
 }
 
 .note .file-info {
   display: flex;
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+.note .file-action {
+  cursor: pointer;
 }
 
 .note i {
@@ -170,6 +175,15 @@
   margin: 0.4rem;
   padding: 0.4rem;
   cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+
+.title .save-button:hover {
+  opacity: 0.8;
+}
+
+.title .save-button:active {
+  opacity: 0.5;
 }
 
 .content .input-note-here:focus {
@@ -253,5 +267,9 @@
 
   .no-content > img {
     width: 5rem;
+  }
+
+  .content .input-note-here {
+    font-size: 1rem;
   }
 }

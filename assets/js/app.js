@@ -1,25 +1,26 @@
-let notes;
+const loadLocalStorage = () => {
+  const savedData = JSON.parse(localStorage.getItem("list"));
 
-const savedData = JSON.parse(localStorage.getItem("list"));
+  if (Array.isArray(savedData)) {
+    return savedData;
+  } else {
+    return [
+      {
+        id: 1,
+        type: "file",
+        name: "welcome",
+        content: "welcome to my notes app.",
+      },
+    ];
+  }
+};
 
-if (Array.isArray(savedData)) {
-  notes = savedData;
-} else {
-  notes = [
-    {
-      id: 1,
-      type: "file",
-      name: "welcome",
-      content: "welcome to my notes app.",
-    },
-  ];
-}
+let notes = loadLocalStorage();
+let allNotesElement;
 
 const noteList = document.querySelector(".notes-container");
 const noteTitleContent = document.querySelector(".title");
 const noteContent = document.querySelector(".textarea");
-
-let allNotesElement;
 
 document.addEventListener("DOMContentLoaded", () => {
   renderSidebar();
@@ -59,9 +60,9 @@ const saveData = () => {
 };
 
 // function on content
-const clickedNote = (notes) => {
-  notes.forEach((note) => {
-    note.addEventListener("click", () => {
+const clickedNote = (noteList) => {
+  noteList.forEach((note) => {
+    note.querySelector(".file-info").addEventListener("click", () => {
       const id = Number(note.id.split("-")[1]);
       renderContent(id);
     });
@@ -86,7 +87,14 @@ const findNoteById = (id, data) => {
 
 const renderContent = (id) => {
   let note = findNoteById(id, notes);
-  if (!note) return;
+  if (!note) {
+    noteTitleContent.innerHTML = "";
+    noteContent.innerHTML = noContentElement();
+    return;
+  }
+
+  if (note.type === "folder") return;
+
   noteTitleContent.innerHTML = noteTitleElement(note) + saveButtonElement();
   noteContent.innerHTML = noteContentElement(note);
   const input = document.querySelector("#input");
@@ -95,7 +103,6 @@ const renderContent = (id) => {
   const saveButton = document.querySelector(".save-button");
   saveButton.addEventListener("click", () => {
     saveNotes(id, input.value, notes);
-    if (notes.length === 0) return;
     note = findNoteById(id, notes);
   });
 
@@ -181,6 +188,7 @@ const renderSidebar = () => {
       const id = Number(folder.id.split("-")[1]);
       rename(id);
     });
+
     folder.querySelector(".delete").addEventListener("click", () => {
       const id = Number(folder.id.split("-")[1]);
       remove(id);
@@ -193,6 +201,7 @@ const renderSidebar = () => {
       const id = Number(note.id.split("-")[1]);
       rename(id);
     });
+
     note.querySelector(".delete").addEventListener("click", () => {
       const id = Number(note.id.split("-")[1]);
       remove(id);
@@ -237,7 +246,6 @@ const rename = (id) => {
       } else {
         if (note.files) {
           for (const noteInFolder of note.files) {
-            console.log(noteInFolder);
             if (noteInFolder.id === id) {
               noteInFolder.name = newName;
               break;
@@ -249,11 +257,34 @@ const rename = (id) => {
   }
   saveData();
   renderSidebar();
+  if (
+    Number(noteTitleContent.querySelector(".note-title").id.split("-")[2]) ===
+    findNoteById(id, notes).id
+  ) {
+    renderContent(id);
+  }
 };
 
 const remove = (id) => {
+  let noteInFolderId, openedNoteId;
   const isRemove = confirm("Hapus element?");
   if (!isRemove) return;
+
+  if (document.querySelector(".note-title")) {
+    openedNoteId = Number(
+      document.querySelector(".note-title").id.split("-")[2]
+    );
+  }
+
+  const folderToRemove = notes.find(
+    (note) => note.type === "folder" && note.id === id
+  );
+
+  if (folderToRemove) {
+    noteInFolderId = folderToRemove.files.find(
+      (note) => note.id === openedNoteId
+    ).id;
+  }
 
   const newNotes = notes.filter((note) => {
     if (note.type === "file") {
@@ -269,10 +300,12 @@ const remove = (id) => {
     }
     return false;
   });
-  console.log(newNotes);
   notes = newNotes;
   saveData();
   renderSidebar();
+  if (openedNoteId === id || noteInFolderId === openedNoteId) {
+    renderContent(id);
+  }
 };
 
 // element function
@@ -316,7 +349,7 @@ const noteElement = (note) => {
 
 const noteTitleElement = (note) => {
   return `
-    <div class="note-title">
+    <div id="opened-note-${note.id}" class="note-title">
         <i class="fa-solid fa-file logo"></i>
         <p>${note.name}</p>
         <i id="close-button" class="fa-solid fa-xmark close"></i>
